@@ -1,4 +1,5 @@
 'use strict';
+
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
@@ -101,13 +102,64 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+    var pkgJSONFields = {
+      name: _.kebabCase(this.props.projectName),
+      version: '0.0.0',
+      description: this.props.projectDescription,
+      homepage: this.props.projectURL,
+      author: {
+        name: this.props.authorName,
+        email: this.props.authorEmail
+      }
+    };
+
+    this.fs.writeJSON('package.json', _.extend(pkgJSONFields, this.pkg));
+  },
+
+  default: function() {
+    this.composeWith('gulpjekyll:basefiles', {
+      options: {
+        projectName: this.props.projectName,
+        projectDescription: this.props.projectDescription,
+        projectURL: this.props.projectURL,
+        authorName: this.props.authorName
+      }
+    }, {
+      local: require.resolve('../basefiles')
+    });
+
+    this.composeWith('gulpjekyll:gulp', {
+      options: {
+        uploading: this.props.uploading
+      }
+    }, {
+      local: require.resolve('../gulp')
+    });
+
+    this.composeWith('gulpjekyll:jekyll', {
+      options: {
+        projectName: this.props.projectName,
+        projectDescription: this.props.projectDescription,
+        projectURL: this.props.projectURL,
+        authorName: this.props.authorName,
+        authorEmail: this.props.authorEmail,
+        authorURI: this.props.authorURI,
+        authorBIO: this.props.authorBIO,
+        authorTwitter: this.props.authorTwitter,
+        authorGithub: this.props.authorGithub,
+        jekyllPermalinks: this.props.jekyllPermalinks
+      }
+    }, {
+      local: require.resolve('../jekyll')
+    });
   },
 
   install: function () {
-    this.installDependencies();
+    if (this.options['skip-install']) {
+      this.log('Please run \'npm install\' and \'bundle install\'');
+    } else {
+      this.npmIsntall();
+      this.spawnCommand('bundle', ['install']);
+    }
   }
 });

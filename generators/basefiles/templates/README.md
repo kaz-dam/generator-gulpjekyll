@@ -1,0 +1,5 @@
+<%= projectName %>
+
+<%= projectDescription %>
+
+<%= authorName %>
