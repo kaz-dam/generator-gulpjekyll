@@ -31,11 +31,71 @@ gulp.task('styles', ['clean-styles'], function() {
 			.pipe(gulp.dest(config.buildStyle)); //todo
 });
 
-gulp.task('clean-styles', function() {
-	
+gulp.task('fonts', ['clean-fonts'], function() {
+	log('Copying fonts');
+
+	return gulp.src(config.fonts) //todo
+			.pipe(gulp.dest(config.build)); //todo
 });
 
+gulp.task('images', ['clean-images'], function() {
+	log('Copying and compressing the images');
+
+	return gulp.src(config.images) //todo
+			.pipe($.imagemin({optimizationLevel: 4}))
+			.pipe(gulp.dest(config.build)); //todo
+});
+
+gulp.task('clean', function(done) {
+	var delall = [].concat(config.build, config.temp); //todo
+	clean(delall, done);
+});
+
+gulp.task('clean-images', function(done) {
+	clean(config.build); //todo
+});
+
+gulp.task('clean-fonts', function(done) {
+	clean(config.build, done); //todo
+});
+
+gulp.task('clean-styles', function(done) {
+	clean(config.buildStyle, done); //todo
+});
+
+gulp.task('clean-code', function(done) {
+	var files = [].concat(
+		config.temp, //todo js
+		config.build, //todo html
+		config.build //todo js
+	);
+	clean(files, done);
+});
+
+// wiredep, bower
+
+// hbs-tmpl
+
+// browser-sync
+
+// jekyll
+
+// watch
+
+// build
+
+// test
+
+// serve-dev
+
+// serve-build
+
 //////////////////////////////////
+
+function clean(path, done) {
+	log('Cleaning out: ' + $.util.colors.blue(path));
+	del(path, done);
+}
 
 function log(msg) {
 	if(typeof(msg) === 'object') {
