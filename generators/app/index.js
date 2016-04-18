@@ -92,6 +92,12 @@ module.exports = yeoman.Base.extend({
                   '\n none: /:categories/:title.html\n')),
       choices: ['date', 'pretty', 'ordinal', 'none'],
       store: true
+    }, {
+      name: 'cssPreprocessor',
+      type: 'list',
+      message: chalk.yellow('CSS preprocessor'),
+      choices: ['Sass', 'Less'],
+      store: true
     }];
 
     this.prompt(prompts, function (props) {
