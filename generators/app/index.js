@@ -34,7 +34,7 @@ module.exports = yeoman.Base.extend({
   prompting: function () {
     var done = this.async();
 
-    if (!this.options['skip-wlcome-message']) {
+    if (!this.options['skip-welcome-message']) {
       this.log(yosay(
         'Welcome to Adam\'s ' + chalk.red('gulpjekyll') + ' generator!'
       ));
@@ -136,7 +136,8 @@ module.exports = yeoman.Base.extend({
 
     this.composeWith('gulpjekyll:gulp', {
       options: {
-        uploading: this.props.uploading
+        uploading: this.props.uploading,
+        cssPreprocessor: this.props.cssPreprocessor
       }
     }, {
       local: require.resolve('../gulp')
