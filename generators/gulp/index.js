@@ -45,7 +45,54 @@ module.exports = yeoman.Base.extend({
 		}
 	},
 
-	writing: function() {
-		
+	writing: {
+		package: function() {
+			var pckg = this.fs.readJSON(this.destinationPath('package.json'), {});
+
+			pckg.devDependencies = pckg.devDependencies || {};
+			_.extend(pckg.devDependencies, {
+				"browser-sync": "^2.12.3",
+			    "browserify": "^13.0.0",
+			    "del": "^2.2.0",
+			    "gulp": "^3.9.1",
+			    "gulp-autoprefixer": "^3.1.0",
+			    "gulp-bump": "^2.1.0",
+			    "gulp-callback": "0.0.3",
+			    "gulp-concat": "^2.6.0",
+			    "gulp-csso": "^2.0.0",
+			    "gulp-declare": "^0.3.0",
+			    "gulp-filter": "^4.0.0",
+			    "gulp-handlebars": "^4.0.0",
+			    "gulp-if": "^2.0.0",
+			    "gulp-imagemin": "^2.4.0",
+			    "gulp-inject": "^4.0.0",
+			    "gulp-jscs": "^3.0.2",
+			    "gulp-jshint": "^2.0.0",
+			    "gulp-less": "^3.0.5",
+			    "gulp-load-plugins": "^1.2.1",
+			    "gulp-minify-html": "^1.0.6",
+			    "gulp-plumber": "^1.1.0",
+			    "gulp-print": "^2.0.1",
+			    "gulp-rev": "^7.0.0",
+			    "gulp-rev-replace": "^0.4.3",
+			    "gulp-sass": "^2.2.0",	// take out
+			    "gulp-shell": "^0.5.2",
+			    "gulp-task-listing": "^1.0.1",
+			    "gulp-uglify": "^1.5.3",
+			    "gulp-useref": "^3.0.8",
+			    "gulp-util": "^3.0.7",
+			    "gulp-wrap": "^0.11.0",
+			    "jshint-stylish": "^2.1.0",
+			    "lodash": "^4.11.0",
+			    "node-notifier": "^4.5.0",
+			    "vinyl-source-stream": "^1.1.0",
+			    "wiredep": "^4.0.0",
+			    "yargs": "^4.6.0"
+			});
+		},
+
+		gulpfile: function() {
+
+		}
 	}
 });
