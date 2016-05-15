@@ -27,6 +27,7 @@ module.exports = yeoman.Base.extend({
 
 	writing: {
 		package: function() {
+			//	writing package.json
 			var pckg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
 			pckg.devDependencies = pckg.devDependencies || {};
@@ -48,13 +49,11 @@ module.exports = yeoman.Base.extend({
 			    "gulp-inject": "^4.0.0",
 			    "gulp-jscs": "^3.0.2",
 			    "gulp-jshint": "^2.0.0",
-			    // "gulp-less": "^3.0.5",	// take out
 			    "gulp-load-plugins": "^1.2.1",
 			    "gulp-plumber": "^1.1.0",
 			    "gulp-print": "^2.0.1",
 			    "gulp-rev": "^7.0.0",
 			    "gulp-rev-replace": "^0.4.3",
-			    // "gulp-sass": "^2.2.0",	// take out
 			    "gulp-shell": "^0.5.2",
 			    "gulp-task-listing": "^1.0.1",
 			    "gulp-uglify": "^1.5.3",
@@ -75,7 +74,19 @@ module.exports = yeoman.Base.extend({
 				pckg.devDependencies['gulp-less'] = '^3.0.5';
 			}
 
+			//	writing bower.json
+			var bowerPckg = this.fs.readJSON(this.destinationPath('bower.json'), {});
+
+			bowerPckg.dependencies = bowerPckg.dependencies || {};
+			_.extend(bowerPckg.dependencies, {
+				"jquery": "^2.2.3",
+			    "handlebars": "^4.0.5",
+			    "normalize-css": "^4.1.1",
+			    "jquery-touchswipe": "^1.6.15"
+			});
+
 			this.fs.writeJSON(this.destinationPath('package.json'), pckg);
+			this.fs.writeJSON(this.destinationPath('bower.json'), bowerPckg);
 		},
 
 		gulpfile: function() {

@@ -15,7 +15,7 @@ module.exports = yeoman.Base.extend({
       type: Boolean
     });
 
-    var dependencies = ['ruby', 'bundle', 'yo', 'gulp', 'node'].every(function(dep) {
+    var dependencies = ['ruby', 'bundle', 'yo', 'gulp', 'node', 'bower'].every(function(dep) {
       return shelljs.which(dep);
     });
 
@@ -29,6 +29,7 @@ module.exports = yeoman.Base.extend({
   initializing: function() {
     this.props = {};
     this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+    this.bowerPkg = this.fs.readJSON(this.destinationPath('bower.json'), {});
   },
 
   prompting: function () {
@@ -113,7 +114,25 @@ module.exports = yeoman.Base.extend({
       }
     };
 
+    var bowerJSONFields = {
+      name: _.kebabCase(this.props.projectName),
+      description: this.props.projectDescription,
+      author: {
+        name: this.props.authorName,
+        email: this.props.authorEmail
+      },
+      homepage: this.props.authorURI,
+      ignore: [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+      ]
+    };
+
     this.fs.writeJSON('package.json', _.extend(pkgJSONFields, this.pkg));
+    this.fs.writeJSON('bower.json', _.extend(bowerJSONFields, this.bowerPkg));
   },
 
   default: function() {

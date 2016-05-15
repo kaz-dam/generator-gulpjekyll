@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Home
 ---
 
-{% include intro.html %}
+<div class="home">
 
-<section class="post-list">
-  <div class="container">
+  <h1 class="page-heading">Posts</h1>
+  
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-    <h2>Writing..</h2>
-
-    {% for post in paginator.posts %}
-      <article class="post-item">
-        <p><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>  — <strong><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></strong> — <span> {{ post.content | strip_html | truncatewords: 40 }}</span> <a class="post-link readmore" href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
-      </article>
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
     {% endfor %}
-  </div>
+  </ul>
 
-  <div class="container">
-    {% include pagination.html %}
-  </div>
-</section>
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>
