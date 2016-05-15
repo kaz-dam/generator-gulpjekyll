@@ -8,14 +8,6 @@ module.exports = yeoman.Base.extend({
 	constructor: function() {
 		yeoman.Base.apply(this, arguments);
 
-		this.option('uploading', {
-			required: true,
-			name: 'uploading',
-			type: 'list',
-			message: 'How will you upload the site?',
-			choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None']
-		});
-
 		this.option('cssPreprocessor', {
 			required: true,
 			name: 'cssPreprocessor',
@@ -23,18 +15,6 @@ module.exports = yeoman.Base.extend({
 			message: 'CSS preprocessor',
 			choices: ['Sass', 'Less']
 		});
-
-		if (args.amazon) {
-			this.options.uploading = 'Amazon S3';
-		}
-
-		if (args.rsync) {
-			this.options.uploading = 'Rsync';
-		}
-
-		if (args.pages) {
-			this.options.uploading = 'Github Pages';
-		}
 
 		if (args.sass) {
 			this.options.cssPreprocessor = 'Sass';
@@ -68,14 +48,13 @@ module.exports = yeoman.Base.extend({
 			    "gulp-inject": "^4.0.0",
 			    "gulp-jscs": "^3.0.2",
 			    "gulp-jshint": "^2.0.0",
-			    "gulp-less": "^3.0.5",
+			    // "gulp-less": "^3.0.5",	// take out
 			    "gulp-load-plugins": "^1.2.1",
-			    "gulp-minify-html": "^1.0.6",
 			    "gulp-plumber": "^1.1.0",
 			    "gulp-print": "^2.0.1",
 			    "gulp-rev": "^7.0.0",
 			    "gulp-rev-replace": "^0.4.3",
-			    "gulp-sass": "^2.2.0",	// take out
+			    // "gulp-sass": "^2.2.0",	// take out
 			    "gulp-shell": "^0.5.2",
 			    "gulp-task-listing": "^1.0.1",
 			    "gulp-uglify": "^1.5.3",
@@ -89,6 +68,14 @@ module.exports = yeoman.Base.extend({
 			    "wiredep": "^4.0.0",
 			    "yargs": "^4.6.0"
 			});
+
+			if (this.options.cssPreprocessor === 'Sass') {
+				pckg.devDependencies['gulp-sass'] = '^2.2.0';
+			} else {
+				pckg.devDependencies['gulp-less'] = '^3.0.5';
+			}
+
+			this.fs.writeJSON(this.destinationPath('package.json'), pckg);
 		},
 
 		gulpfile: function() {

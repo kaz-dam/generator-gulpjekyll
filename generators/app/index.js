@@ -77,12 +77,6 @@ module.exports = yeoman.Base.extend({
       message: 'Your Github username',
       store: true
     }, {
-      name: 'uploading',
-      type: 'list',
-      message: 'How will you upload the site?',
-      choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None'],
-      store: true
-    }, {
       name: 'jekyllPermalinks',
       type: 'list',
       message: 'Permalink style' + (chalk.yellow(
@@ -136,7 +130,6 @@ module.exports = yeoman.Base.extend({
 
     this.composeWith('gulpjekyll:gulp', {
       options: {
-        uploading: this.props.uploading,
         cssPreprocessor: this.props.cssPreprocessor
       }
     }, {
