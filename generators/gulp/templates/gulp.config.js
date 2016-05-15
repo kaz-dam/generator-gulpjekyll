@@ -31,7 +31,12 @@ module.exports = function() {
 		/****
 		* Style
 		*****/
-		styleCompiler: 'Sass', // todo sass or less
+		styleCompiler:
+		<% if (sass) { %>
+			'Sass',
+		<% } else if (less) { %>
+			'Less',
+		<% } %>
 		style: src + 'assets/style/main.scss',
 		buildStyle: buildStyle,
 		buildCss: buildStyle + '*.css',

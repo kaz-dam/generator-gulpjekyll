@@ -79,7 +79,23 @@ module.exports = yeoman.Base.extend({
 		},
 
 		gulpfile: function() {
+			this.fs.copyTpl(
+				this.templatePath('gulpfile.js'),
+				this.destinationPath('gulpfile.js'),
+				{
+					sass: this.options.cssPreprocessor === 'Sass',
+					less: this.options.cssPreprocessor === 'Less'
+				}
+			);
 
+			this.fs.copyTpl(
+				this.templatePath('gulpfile.config.js'),
+				this.destinationPath('gulpfile.config.js'),
+				{
+					sass: this.options.cssPreprocessor === 'Sass',
+					less: this.options.cssPreprocessor === 'Less'
+				}
+			);
 		}
 	}
 });

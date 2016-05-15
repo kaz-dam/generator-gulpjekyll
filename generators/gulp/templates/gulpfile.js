@@ -24,11 +24,15 @@ gulp.task('test-js', function() {
 });
 
 gulp.task('styles', ['clean-styles'], function() {
-	log('Compiling ' + config.styleCompiler + ' --> CSS'); //todo
+	log('Compiling ' + config.styleCompiler + ' --> CSS');
 
 	return gulp.src(config.style)
 			.pipe($.plumber())
-			.pipe($.sass()) //todo
+			<% if (sass) { %>
+				.pipe($.sass())
+			<% } else if (less) { %>
+				.pipe($.sass())
+			<% } %>
 			.pipe($.autoprefixer({browsers: ['last 2 version', '> 5%']}))
 			.pipe(gulp.dest(config.buildStyle));
 });
