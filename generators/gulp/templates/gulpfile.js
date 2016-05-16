@@ -103,7 +103,7 @@ gulp.task('inject', ['wiredep'], function() {
 		.pipe(gulp.dest(config.build));
 });
 
-// hbs-tmpl
+// hbs-templating
 gulp.task('tmpl', function() {
 	log('Rendering templates to a js file');
 

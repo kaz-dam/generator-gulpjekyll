@@ -32,7 +32,7 @@ module.exports = yeoman.Base.extend({
 	},
 
 	configuring: function() {
-		this.fs.copyTmpl(
+		this.fs.copyTpl(
 			this.templatePath('README.md'),
 			this.destinationPath('README.md'),
 			{

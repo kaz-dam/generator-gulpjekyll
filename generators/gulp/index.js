@@ -95,13 +95,14 @@ module.exports = yeoman.Base.extend({
 				this.destinationPath('gulpfile.js'),
 				{
 					sass: this.options.cssPreprocessor === 'Sass',
-					less: this.options.cssPreprocessor === 'Less'
+					less: this.options.cssPreprocessor === 'Less',
+					contents: '<%= contents %>'
 				}
 			);
 
 			this.fs.copyTpl(
-				this.templatePath('gulpfile.config.js'),
-				this.destinationPath('gulpfile.config.js'),
+				this.templatePath('gulp.config.js'),
+				this.destinationPath('gulp.config.js'),
 				{
 					sass: this.options.cssPreprocessor === 'Sass',
 					less: this.options.cssPreprocessor === 'Less'

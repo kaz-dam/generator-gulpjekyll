@@ -177,7 +177,7 @@ module.exports = yeoman.Base.extend({
     if (this.options['skip-install']) {
       this.log('Please run \'npm install\' and \'bundle install\'');
     } else {
-      this.npmIsntall();
+      this.npmInstall();
       this.spawnCommand('bundle', ['install']);
     }
   }
